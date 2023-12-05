@@ -45,14 +45,9 @@ export async function DELETE(
 ) {
   try {
     const { userId } = auth();
-    const { name } = await req.json();
 
     if (!userId) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
-
-    if (!name) {
-      return new NextResponse("Name is required", { status: 400 });
+      return new NextResponse("Unauthenticated", { status: 403 });
     }
 
     if (!params.storeId) {
@@ -68,7 +63,7 @@ export async function DELETE(
 
     return NextResponse.json(store);
   } catch (error) {
-    console.log("[STORE_PATCH]", error);
+    console.log("[STORE_DELETE]", error);
     return new NextResponse("Internal error", { status: 500 });
   }
 }
