@@ -3,6 +3,8 @@ import { format } from "date-fns";
 import prismadb from "@/lib/prismadb";
 import { BillboardClient } from "./components/client";
 import { BillboardColumn } from "./components/columns";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 const BillboardsPage = async ({ params }: { params: { storeId: string } }) => {
   const billboards = await prismadb.billboard.findMany({
@@ -20,6 +22,7 @@ const BillboardsPage = async ({ params }: { params: { storeId: string } }) => {
     createAt: format(item.createAt, "MMMM do, yyyy"),
   }));
 
+  console.log(params.storeId);
   return (
     <>
       <div className="flex-col">
