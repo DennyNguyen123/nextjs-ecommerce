@@ -60,8 +60,10 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
   });
 
   const onSubmit = async (data: BillboardFormValue) => {
+    console.log(data);
     try {
       setLoading(true);
+      console.log(data);
       if (initialData) {
         await axios.patch(
           `/api/${params.storeId}/billboards/${params.billboardId}`,
@@ -73,8 +75,9 @@ const BillboardForm: React.FC<BillboardFormProps> = ({ initialData }) => {
       router.refresh();
       router.push(`/${params.storeId}/billboards`);
       toast.success(toastMessage);
-    } catch (error) {
-      toast.error("Something went wrong");
+    } catch (error: any) {
+      console.log(error);
+      toast.error("Something went wrong.");
     } finally {
       setLoading(false);
     }
