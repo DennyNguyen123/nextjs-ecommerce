@@ -14,6 +14,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -24,12 +25,18 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import AlertModal from "@/components/modals/alert-modal";
 import { useOrigin } from "@/hooks/use-origin";
-import { Select } from "@/components/ui/select";
+import {
+  Select,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+} from "@/components/ui/select";
 import {
   SelectContent,
   SelectTrigger,
   SelectValue,
 } from "@radix-ui/react-select";
+import Link from "next/link";
 
 const formSchema = z.object({
   name: z.string().min(1),
@@ -40,7 +47,7 @@ type CategoryFormValue = z.infer<typeof formSchema>;
 
 interface CategoryFormProps {
   initialData: Category | null;
-  billboards: Billboard[] | null;
+  billboards: Billboard[];
 }
 
 const CategoryForm: React.FC<CategoryFormProps> = ({
@@ -153,6 +160,7 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="billboardId"
@@ -170,10 +178,16 @@ const CategoryForm: React.FC<CategoryFormProps> = ({
                         <SelectValue
                           defaultValue={field.value}
                           placeholder="Select a billboard"
-                        ></SelectValue>
+                        />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent></SelectContent>
+                    <SelectContent>
+                      {billboards.map((billboard) => (
+                        <SelectItem key={billboard.id} value={billboard.id}>
+                          {billboard.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
                   </Select>
                   <FormMessage />
                 </FormItem>
