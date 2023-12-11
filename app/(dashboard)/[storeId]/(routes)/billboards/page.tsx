@@ -22,7 +22,7 @@ const BillboardsPage = async ({ params }: { params: { storeId: string } }) => {
     createAt: format(item.createAt, "MMMM do, yyyy"),
   }));
 
-  console.log(params.storeId);
+  // console.log(params.storeId);
   return (
     <>
       <div className="flex-col">

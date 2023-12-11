@@ -13,7 +13,7 @@ const BillboardPage = async ({
     },
   });
 
-  console.log(billboard);
+  // console.log(billboard);
 
   return (
     <div className="flex-col">
