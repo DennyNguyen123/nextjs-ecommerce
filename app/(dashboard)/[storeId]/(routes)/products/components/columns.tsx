@@ -1,0 +1,62 @@
+"use client";
+
+import { ColumnDef } from "@tanstack/react-table";
+import CellAction from "./cell-action";
+import { Decimal } from "@prisma/client/runtime/library";
+
+// This type is used to define the shape of our data.
+// You can use a Zod schema here if you want.
+export type ProductColumn = {
+  id: string;
+  name: string;
+  isFeatured: boolean;
+  isArchived: boolean;
+  price: string;
+  category: string;
+  color: string;
+  createAt: string;
+};
+
+export const columns: ColumnDef<ProductColumn>[] = [
+  {
+    accessorKey: "name",
+    header: "Name",
+  },
+  {
+    accessorKey: "isArchived",
+    header: "Archived",
+  },
+  {
+    accessorKey: "isFeatured",
+    header: "Featured",
+  },
+  {
+    accessorKey: "price",
+    header: "Price",
+  },
+  {
+    accessorKey: "category",
+    header: "Category",
+  },
+  {
+    accessorKey: "color",
+    header: "Color",
+    cell: ({ row }) => {
+      <div className="flex items-center gap-x-4">
+        {row.original.color}
+        <div
+          className="h-6 w-6 rounded-full border"
+          style={{ backgroundColor: row.original.color }}
+        />
+      </div>;
+    },
+  },
+  {
+    accessorKey: "createAt",
+    header: "Create Date",
+  },
+  {
+    id: "action",
+    cell: ({ row }) => <CellAction data={row.original} />,
+  },
+];
